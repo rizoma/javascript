@@ -4,18 +4,18 @@ title: Home
 ---
 
 <div class="posts">
-    <h2>Presentaciones</h2>
+  <h2> Nivel 2 </h2>
+    <h3>Presentaciones</h3>
     <ul>
     {% for post in site.categories.presentaciones %}
       <li><a href="{{site.baseurl}}{{ post.url }}">{{ post.title }}</a> (<date>{{ post.date | date_to_string }}</date>)</li>
     {% endfor %}
     </ul>
 
-    <h2>Guías</h2>
+    <h3>Guías/Proyectos</h3>
     <ul>
     {% for post in site.categories.guias %}
       <li><a href="{{site.baseurl}}{{ post.url }}">{{ post.title }}</a> (<date>{{ post.date | date_to_string }}</date>)</li>
     {% endfor %}
     </ul>
-    <h3><strong>NOTA: las guías para la sesión del 26 de junio estarán en este sitio el 28 de junio en la mañana, disculpen el retraso!</strong></h3>
 </div>

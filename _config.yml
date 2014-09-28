@@ -9,7 +9,7 @@ relative_permalinks: true
 
 # Setup
 title:            'Javascript'
-tagline:          'Fundamentos y aplicaciones'
+tagline:          'Fundamentos, cliente y servidor'
 description:      'Desde las bases de javascript hasta sus usos más comunes en el cliente y servidor'
 url:              http://rizomas.org/javascript
 
