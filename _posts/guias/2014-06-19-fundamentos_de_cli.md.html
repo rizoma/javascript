@@ -1,0 +1,115 @@
+---
+categories: [guias]
+title: Fundamentos de CLI
+layout: slideshow
+---
+
+class: center, middle, inverse
+
+# La interfaz de línea de comandos
+
+---
+
+.left-column[##Qué es la CLI?]
+
+.right-column[
+La CLI (_command line interface_, interfaz de línea de comandos) es una utilidad que permite interactuar con el sistema operativo
+sin necesidad de una interfaz gráfica, mediante programas basados en texto. Es usual recurrir a esta utilidad para tareas administrativas o
+actividades relacionadas al desarrollo, y es generalmente la única interfaz disponible en un servidor al cual se accede remotamente.
+
+Git tiene [interfaces gráficas](http://git-scm.com/downloads/guis) que pueden ser usadas para casi todas las necesidades; sin embargo, por mor de una 
+experiencia homogénea en la clase, y para prepararnos a trabajar en cualquier computadora, usaremos la terminal.
+]
+
+---
+
+.left-column[##Dónde está?]
+
+.right-column[
+En sistemas basados en UNIX, como Linux y OS X, es un programa llamado Terminal, usualmente. En windows, es el "command prompt", al cual se puede acceder 
+mediante el comando "cmd" al ejecutar directamente.
+
+Para los propósitos de esta clase, si se está utilizando windows, se recomienda utilizar el programa "Git Bash" incluido en [msysgit](http://msysgit.github.io/) y [git for windows](http://git-scm.com/download/win): es un emulador 
+de terminal que incluye comandos estándar de UNIX, evitando así tener que traducir los ejercicios a comandos de DOS (lo cual no siempre es posible)
+]
+
+---
+
+.left-column[##Anatomía de un comando]
+
+.right-column[
+```terminal
+$ nombre [OPCIONES] [ARGUMENTOS]
+$ nombre --opcion-larga -o
+$ ls -l 
+$ diff --ignore-case A B
+```
+
+Nota: El signo de dólar, por convención, indica el _prompt_ y no deberá copiarse.
+]
+
+---
+
+
+.left-column[##Comandos útiles]
+
+.right-column[
+* `mkdir NOMBRE`: para crear directorios
+* `cd RUTA`: para moverse de un directorio a otro
+* `ls RUTA`: para listar los contenidos de un directorio
+* `cat NOMBRE`: para mostrar todos los contenidos de un archivo
+* `less NOMBRE`: para mostrar los contenidos de un archivo, paginados
+* `diff A B`: para ver las diferencias entre dos archivos
+* `echo MENSAJE`: para imprimir en la salida estándar (terminal)
+* `grep QUERY ARCHIVO`: para buscar algo en un archivo
+* `pwd`: para imprimir la ruta donde estamos actualmente
+* `man comando`: para ver la entrada del manual sobre el comando
+* `comando -h` o `comando --help`: para ver la ayuda propia del comando
+]
+
+---
+
+.left-column[##Interacción entre comandos]
+
+.right-column[
+* `comando > archivo`: envía la _salida_ de un comando a un archivo.
+* `comando >> archivo`: _agrega_ la _salida_ de un comando a un archivo.
+* `comando < archivo`: usa el _archivo_ como entrada para el comando
+* `comando | otro-comando`: usa la salida del primer comando como entrada del siguiente; _encadena_
+* `comando ; otro-comando`: ejecuta _comando_ y, cuando termina, el _otro-comando_.
+* `comando && otro-comando`: ejecuta _comando_ y, __si no falla al terminar__, el otro comando.
+]
+
+---
+
+## Un ejemplo
+
+```terminal
+$ ls
+$ mkdir ejemplo
+$ pwd | ls
+$ cd ejemplo
+$ ls .
+$ touch a.txt
+$ cat a.txt
+$ ls -l .
+$ echo "hola" > a.txt
+$ cat a.txt
+$ echo "mundo" >> a.txt && echo "HOLA" > b.txt
+$ cat *.txt
+$ diff a.txt b.txt
+$ diff --ignore-case a.txt b.txt
+$ yes "hola" | head -n 100 > c.txt
+$ less c.txt
+$ head c.txt
+$ tail c.txt
+$ yes "bye" | head -n 100 >> c.txt
+$ cat c.txt | uniq 
+$ uniq < r.txt
+```
+
+---
+
+Más práctica: 
+
+* [Introducción a Linux](http://intro-linux.github.io/)

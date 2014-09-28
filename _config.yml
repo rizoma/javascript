@@ -1,0 +1,26 @@
+# Dependencies
+markdown:         redcarpet
+highlighter:      pygments
+
+# Permalinks
+permalink:        ":categories/:title/"
+baseurl:          /javascript
+relative_permalinks: true
+
+# Setup
+title:            'Javascript'
+tagline:          'Fundamentos y aplicaciones'
+description:      'Desde las bases de javascript hasta sus usos más comunes en el cliente y servidor'
+url:              http://rizomas.org/javascript
+
+author:
+  name:           'Luis Borjas'
+  url:            http://rizomas.org
+
+paginate:         5
+
+# Custom vars
+version:          2.0.0
+
+github:
+  repo:           https://github.com/rizoma/javascript

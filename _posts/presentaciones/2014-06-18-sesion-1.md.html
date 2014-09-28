@@ -1,0 +1,154 @@
+---
+categories: [presentaciones]
+title: "Sesión 1: Fundamentos"
+layout: slideshow
+---
+
+class: center, middle, inverse
+
+# Sesión 1: Fundamentos de Git
+
+---
+
+
+class: center, middle 
+
+# Preámbulo: un tour rápido
+
+---
+
+
+##Control de versiones?
+
+* Mantiene un historial de cambios hechos a un archivo (o un proyecto)
+* Permite revertir errores, auditar problemas, recuperar datos perdidos
+* Ayuda a la colaboración al asegurarse que los participantes tengan la versión correcta
+
+---
+
+## Control de versiones local
+
+* Simplemente guardar distintas "instantáneas" (_snapshots_) del proyecto manualmente
+* Algunos implementadores sofisticados no guardan instantáneas, sino que solo las diferencias entre versions (`rcs` en mac)
+* Ventajas: sencillo, no se necesita aprender nada, es DIY (do it yourself).
+* Desventajas: altamente propenso a errores.
+
+---
+
+.center[![local CVS](http://git-scm.com/figures/18333fig0101-tn.png)]
+
+---
+
+## Control de versiones centralizado
+
+* Qué pasa al querer colaborar? Solución: guardar la historia en un servidor central.
+* Ejemplos: Subversion y Perforce.
+* Ventajas: el servidor como "fuente de verdad".
+* Desventajas: servidor como SPoF (single point of failure): si no está disponible, no se pueden guardar versiones.
+
+---
+
+.center[![centralized CVS](http://git-scm.com/figures/18333fig0102-tn.png)]
+
+---
+
+## Control de versiones distribuido
+
+* Cada cliente tiene su propia copia del repositorio, y pueden hablar con varios servidores.
+* Ejemplos: Mercurial, Bazaar, Darcs, Fossil y Git.
+* Uno puede decidir quién es la autoridad: si un repositorio central, una rama en un repositorio externo, uno de los colaboradores, etc.
+* Flujos de trabajo más flexibles y menos riesgo de corrupción y pérdida del historial.
+
+---
+
+.center[![distributed CVS](http://git-scm.com/figures/18333fig0103-tn.png)]
+
+---
+
+## "Git: the stupid content tracker"
+
+* Creado por Linus Torvalds para control de versiones del kernel de linux
+* Debía ser rápido y portable, ser capaz de lidiar con proyectos gigantes y con varios colaboradores y permitir el "desarrollo no lineal" (ramas/branches)
+* Por qué usarlo? Por esas cualidades y por la comunidad que se ha creado en torno a él gracias a Linux y otros proyectos, y GitHub en los últimos años.
+
+---
+
+##Fundamentos de Git
+
+* Instantáneas, no diferencias: guarda "snapshots" (comprimidos y optimizados) del estado del proyecto
+* Integridad: para git todo, desde archivos, "commits", ramas y eventos, tiene un identificador único alfanumérico de 40 caracteres (hash basado en el algoritmo SHA-1), basado en el contenido del archivo o del proyecto. 
+* Dado lo anterior, la forma en que Git funciona es no-destructiva: todo es una adición, casi cualquier acción puede revertirse, la integridad no permite corrupción accidental.
+* Casi cualquier operación es local: debido a que guarda instantáneas de todo el proyecto, cualquier cosa (desde registrar una nueva versión hasta comparar con versiones viejísimas o reestablecerlas) ocurre localmente sin necesidad de conexión a la red.
+
+.center[![git snapshots 0](http://gitref.org/images/snapshots.png)]
+
+---
+
+## SCV basados en diferencias
+
+.center[![delta-based VCS](http://git-scm.com/figures/18333fig0104-tn.png)]
+
+---
+
+## SCV basados en "snapshots"
+
+.center[![git snapshots 1](http://git-scm.com/figures/18333fig0105-tn.png)]
+
+---
+
+## El flujo de git
+
+* Uno __modifica__ (_modifies_) un archivo o conjunto de archivos.
+* Cuando uno lo decide, __prepara__ (_stages_) los archivos para ser confirmados.
+* Al tomar una "instantánea"(_snapshot_), uno __confirma__ (_commits_) los cambios, y estos se guardan al historial (_repository_).
+
+.center[![git flow](http://git-scm.com/figures/18333fig0106-tn.png)]
+
+---
+
+## Un ejemplo en código
+
+```terminal
+$ git status
+On branch gh-pages
+Changes to be committed:
+  (use "git reset HEAD <file>..." to unstage)
+
+        new file:   conocido.txt
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git checkout -- <file>..." to discard changes in working directory)
+
+        modified:   _posts/presentaciones/2014-06-18-sesion-1.md.html
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+
+        desconocido.tx
+```
+---
+
+.left-column[
+## El lenguaje de git
+]
+
+.right-column[
+* __"working directory"__: los archivos _conocidos_ a git que conforman la totalidad del proyecto, la última instantánea
+* __"staging area"__: los archivos que, si se tomara una instantánea en este momento, serían los que cambiaron
+* __"git directory/repository"__: todo el historial
+* __commit__: cada instantánea/checkpoint/confirmación en el historial
+* __branch__: versiones alternas del historial: uno puede trabajar en una "historia alterna" sin afectar la principal
+* __log__: la bitácora de cambios
+* __status__: el estado actual del repositorio
+* __tag__: una "etiqueta" para referirse a un objeto sin tener que usar el sha/hash
+* __checkout__: mover el repositorio a otro estado (una branch, un commit, una tag, etc.)
+]
+
+---
+
+## Referencias
+
+* [Pro Git: Capítulo 1](http://git-scm.com/book/es/Empezando)
+* [GitHub Training Kit](https://training.github.com/kit/slides/github-foundations.html#/)
+* [GitRef](http://gitref.org/)
