@@ -22,9 +22,10 @@ Facilitador: Luis Borjas (luis@rizomas.org)
 
 * [Crockford on Javascript](http://yuiblog.com/crockford/)
 
-## Tutoriales interactivos
+## Tutoriales interactivos/otros cursos
 
 * [codecademy](http://www.codecademy.com/en/tracks/javascript)
+* [khan academy (John Resig, creador de JS, trabaja aquí)](https://www.khanacademy.org/computing/computer-programming/programming)
 
 ## Páginas, listas y artículos en la web
 
@@ -42,3 +43,7 @@ Facilitador: Luis Borjas (luis@rizomas.org)
 ## Material viejo escrito por Luis Borjas:
 
 * [Curso de desarrollo web de 2010](https://github.com/progra4-2010-4/quizzgen/blob/master/seeds/lang.markdown)
+
+## Materiales de apoyo
+
+* [Teaching materials.org](http://www.teaching-materials.org/javascript/)
