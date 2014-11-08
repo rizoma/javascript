@@ -39,3 +39,6 @@ Facilitador: Luis Borjas (luis@rizomas.org)
 * Para pruebas rápids, pueden usar la [consola de su browser favorito](https://developer.chrome.com/devtools/docs/console) o [JS console](http://jsconsole.com/)
 * Para compartir código, pueden usar [gists](https://gist.github.com/), [jsFiddles](http://jsfiddle.net/) o [js bin](http://jsbin.com/xadekoraka/1/edit?js,output)
 
+## Material viejo escrito por Luis Borjas:
+
+* [Curso de desarrollo web de 2010](https://github.com/progra4-2010-4/quizzgen/blob/master/seeds/lang.markdown)
