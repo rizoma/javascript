@@ -1,0 +1,265 @@
+---
+categories: [presentaciones, nivel2]
+title: "Arreglos, objetos y funciones"
+layout: slideshow
+---
+
+class: center, middle, inverse
+
+# Arreglos, objetos y funciones
+
+---
+
+## Arreglos
+
+Los arreglos en javascript se comportan como **listas**, porque pueden crecer sin preocuparnos por
+el tamaño y permiten tener miembros de cualquier tipo combinados (i.e. son heterogéneas)
+; y como objetos, en el sentido que tienen varios [métodos](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)
+que podemos usar.
+
+```javascript
+var lista = [1, "hola", new Date()];
+console.log( lista[2] );
+
+var a = [1, 2, 3];
+var b = [6, 5, 7];
+
+//propiedades:
+console.log( b.length );
+
+//algunos métodos:
+console.log(a.indexOf(2));
+console.log(a.indexOf(12));
+
+c = a.concat(b);
+console.log(c);
+console.log(c.sort());
+console.log(c);
+
+c.push(8)
+console.log(c);
+var top = c.pop();
+console.log(c, top);
+```
+
+---
+
+## Objetos como mapas
+
+El uso más simple de los objetos es como **mapas**: una estructura de datos donde asociamos llaves ("keys")
+a valores ("values") y luego somos capaces de obtener cualquier valor si proveemos la llave.
+
+```javascript
+var mapa = { nombre: "Luis", apellido: "Borjas", 
+             clases: ["Git", "Javascript"], 
+	     saludar: function(){ console.log("hola"); }};
+console.log( mapa.nombre ); //podemos usar la "notación punto"
+console.log( mapa["apellido"] ); //o la "notación subíndice"
+
+console.log(typeof mapa);//typeof nos permite descubrir el tipo de algo
+
+mapa.nombre = "Luis Felipe"; //podemos alterar el mapa
+console.log(mapa)
+
+//o hacerle preguntas sobre sus propiedades:
+console.log( "nombre" in mapa );
+console.log( "edad" in mapa );
+
+delete mapa.clases; //o incluso borrar propiedades
+console.log( "clases" in mapa );
+mapa.apellido = undefined; //que no es lo mismo que poner como indefinido
+console.log( "apellido" in mapa );
+
+//los arreglos solo son objetos especializados
+console.log(typeof [1,2,3]);
+```
+
+---
+
+## Objetos predefinidos
+
+Javascript ya trae algunos [objetos predefinidos](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects)
+con los cuales podemos interactuar. Y, más importantemente, que podemos **instanciar** (cuando un objeto se puede instanciar, se dice que es un **constructor**).
+
+```javascript
+//El objeto Math trae algunas constantes y métodos útiles
+//pero no es un constructor
+console.log(Math.E); //la constante de Euler
+console.log(Math.PI); // el número Pi
+console.log(Math.floor(1.35));
+console.log(Math.random());
+console.log(Math.max(1,3));
+
+//el objeto Number tiene constantes y métodos propios, pero también
+//es un constructor.
+console.log(Number.MAX_VALUE);
+console.log(Number.isNaN(0/0));
+
+//podemos construirlo, pero no sirve de mucho
+var n = new Number(42);
+var m = 42;
+console.log(typeof n);
+console.log(typeof m);
+```
+
+---
+
+## Objetos predefinidos
+
+Uno de los objetos predefinidos más útiles es [Date](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date), 
+seguido de [JSON](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON)
+
+
+```javascript
+//retorna valores numéricos (UNIX timestamp)
+console.log(Date.now());
+console.log(Date.parse("2014-11-15")); //entiende los formatos estándar
+console.log(new Date(Date.now()));
+console.log(new Date());
+console.log(new Date("2014-11-15 10:00"));
+console.log(new Date(2014, 10, 15)); // enero es 0
+
+//hay operaciones sobre sus instancias
+var fecha = new Date(2014, 10, 14);
+//accesores ("getters")
+console.log(fecha.getDate());
+console.log(fecha.getDay());
+//mutadores ("setters")
+console.log(fecha.setDate(17));
+
+//JSON permite interactuar con datos transmitidos en esa notación
+console.log(JSON.parse('{"a": 42}'));
+console.log(JSON.stringify({b: 43}));
+```
+
+---
+
+class: center, middle
+
+# Funciones
+
+---
+
+## Creando funciones
+
+Las funciones se pueden crear como cualquier otra variable, o mediante la "notación de declaración".
+Javascript tiene funciones anónimas y con nombre, nombrar funciones permite la **recursión**.
+
+```javascript
+function doble(x){
+  return x * 2;
+}
+
+//la expresión de la derecha se conoce como una "función anónima"
+var cuadrado = function(x){ return x*x; };
+
+console.log(doble(5));
+console.log(cuadrado(5));
+
+//pero ambas notaciones se pueden combinar
+//lo cual es útil para la recursión.
+var factorial = function fac(n){ return n<2 ? 1 : n*fac(n-1)};
+console.log(factorial(3));
+
+// argumentos por defecto
+var potencia = function(base, exponente){
+  if(exponente == undefined) exponente = 2;
+  return Math.pow(base, exponente);
+}
+
+console.log(potencia(4));
+console.log(potencia(2,3));
+```
+
+---
+
+
+## Funciones como objetos
+
+Las funciones, como todo en javascript, también son [objetos con propiedades y métodos](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function).
+
+```javascript
+var y = function(){}
+var z = function zeta(){}
+console.log(y.name);
+console.log(z.name);
+
+var operar = function(operacion, operando){ return operacion.apply(null, operandos) }
+var sumar  = function(a, b){ return a + b; }
+console.log(operar(sumar, [3, 5]));
+
+var numeros = [1,2,3,4];
+console.log( Math.max.apply(null, numeros));
+
+//algo no muy usado: el constructor de funciones
+var sumar = new Function('a', 'b', 'return a + b');
+```
+
+---
+
+## Más sobre funciones: "arguments"
+
+Existe un objeto especial llamado [`arguments`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/arguments) disponible dentro de funciones, que actúa
+como un arreglo pero no tiene ninguno de los métodos de arreglos. 
+
+```javascript
+function sumarSerie(){
+  console.log(arguments.callee.name);
+  console.log(typeof arguments);
+  var res = 0;
+  for(var i = 0; i < arguments.length; i++)
+    res += arguments[i];
+  return res;
+}
+
+console.log(sumarSerie(1,2,3,4));
+
+function doblarMax(){
+  max = Math.max.apply(null, Array.prototype.slice.call(arguments));
+  return max * 2;
+}
+
+console.log(doblarMax(5,4,2,6));
+```
+
+---
+
+## Más sobre funciones: cerraduras
+
+Asimismo, uno puede definir funciones dentro de funciones, encontrando una propiedad del lenguaje llamada "cerradura" ([closure](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Functions#Closures)).
+
+```javascript
+function wrap(n){
+  var localN = n;
+  return function(){ return localN; }
+}
+var wrapped = wrap(2);
+console.log(wrapped());
+
+function multiplicador(factor){
+  return function(numero){
+    return numero * factor;
+  }
+}
+var triple = multiplicador(3);
+console.log(triple(5));
+
+function celda(inicial){
+  var contenedor = [inicial];
+  return {
+    agregar: function(x){
+      contenedor.push(x);
+    },
+    contenido: function(){
+      return contenedor;
+    }
+  }
+}
+```
+
+## Referencia
+
+* [Capítulo sobre objetos y arreglos en eloquent javascript](http://eloquentjavascript.net/04_data.html)
+* [Objetos predefinidos, documentación de mozilla](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects)
+* [Capítulo sobre funciones, eloquent javascript](http://eloquentjavascript.net/03_functions.html)
+* [Referencia sobre funciones en la documentación de mozilla](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Functions)
