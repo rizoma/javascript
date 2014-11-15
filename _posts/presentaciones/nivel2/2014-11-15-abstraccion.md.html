@@ -1,0 +1,249 @@
+---
+categories: [presentaciones, nivel2]
+title: "Sesión 2: objetos y funciones como medios de abstracción"
+layout: slideshow
+---
+
+class: center, middle, inverse
+
+# Abstracción mediante objetos y funciones
+
+---
+
+## Objetos definidos por el usuario
+
+A diferencia de otros lenguajes, javascript no tiene el concepto de "clases",
+pero uno puede definir sus propios constructores.
+
+```javascript
+var Persona = function(nombre, apellido){
+  this.nombre = nombre;
+  this.apellido = apellido;
+  this.nombreCompleto = function(){ return this.nombre + " " + this.apellido }
+}
+
+//la palabra clave "new" nos permite crear instancias
+var luis = new Persona("Luis", "Borjas");
+var juan = new Persona("Juan", "Perez");
+console.log(luis.nombre);
+
+//uno puede asignar propiedades/métodos arbitrarios a una instancia
+//el objeto "this" siempre se refiere al objeto que llama
+luis.saludar = function(){ console.log(this.nombre + " dice: hola!"); }
+juan.edad = 42;
+console.log(luis.saludar());
+console.log(luis.edad);
+console.log(juan.saludar && juan.saludar());
+console.log(juan.edad);
+
+//incluso a una "clase" (que después de todo es una instancia de Function)
+Persona.crear = function(n,a){ return new Persona(n,a) }
+var elon = Persona.crear("Elon", "Musk");
+console.log(elon.nombreCompleto());
+```
+
+---
+
+## Prototipos
+
+El **prototipo** en javascript es una propiedad especial que tienen todos los objetos: cuando uno busca una propiedad
+en un objeto, primero se buscará en el objeto mismo y luego en su prototipo; sino está allí, en el prototipo del prototipo, y así recursivamente.
+
+```javascript
+var empty = {};
+console.log(empty.toString);
+console.log(empty.toString());
+
+empty.propiedad = 3;
+console.log(empty.hasOwnProperty("propiedad"));
+console.log(empty.hasOwnProperty("toString"));
+
+console.log(Object.getPrototypeOf(empty));
+console.log(Object.getPrototypeOf(empty) == Object.prototype);
+console.log(Object.prototype.toString());
+console.log(Object.prototype.toString() == e.toString());
+console.log(Object.getPrototypeOf(Object.prototype)); //aquí termina la recursión
+
+//algunos objetos heredan prototipos más especializados
+var f = function(){}
+console.log(Object.getPrototypeOf(f) == Function.prototype);
+var arr = [];
+console.log(Object.getPrototypeOf(arr) == Array.prototype);
+
+//uno puede asignar prototipos
+var protoPersona = { consciente: "a veces" };
+var alguien = Object.create(protoPersona);
+console.log(alguien.consciente);
+```
+
+---
+
+## Usando prototipos para proveer métodos
+
+Uno puede poner métodos en un prototipo para distinguirlos de las *propiedades* de un objeto.
+
+```javascript
+var Persona = function(nombre, apellido){
+  this.nombre = nombre;
+  this.apellido = apellido;
+  this.saludar = function(){ console.log(this.nombre + "dice Hola!") }
+}
+
+Persona.prototype.nombreCompleto = function(){ return this.nombre + " " + this.apellido; }
+
+var luis = new Persona("Luis", "Borjas");
+console.log(luis.nombreCompleto());
+console.log(luis.hasOwnProperty("nombre"));
+console.log(luis.hasOwnProperty("nombreCompleto"));
+console.log(luis.hasOwnProperty("saludar"));
+
+Persona.prototype.nombreFormal = function(){ return this.apellido + ", " + this.nombre; }
+
+console.log(luis.nombreFormal());
+
+//cuidado con la interferencia de los prototipos
+for( var p in luis){
+  console.log(p + ": " + luis[p]);
+}
+
+for( var p in luis){
+  if(luis.hasOwnProperty(p)) console.log(p + ": " + luis[p]);
+}
+
+```
+
+---
+
+## Herencia
+
+Herencia, en general, es cuando uno crea una clase que tiene métodos de otra. Como todo en JavaScript, hay [varias formas de hacerlo](http://javascript.crockford.com/prototypal.html).
+Pero en los últimos años avances en el lenguaje permiten hacerlo de una forma más o menos inteligible.
+
+```javascript
+var Persona = function(nombre, apellido){
+  this.nombre = nombre;
+  this.apellido = apellido;
+}
+Persona.prototype.saludar = function(){ 
+  console.log(this.nombre + " dice: hola!");
+}
+Persona.prototype.caminar = function(){
+  console.log(this.nombre + " dice: estoy caminando!")
+}
+
+var Ingeniero = function(nombre, apellido, especialidad){
+  Persona.call(this, nombre, apellido);
+  this.especialidad = especialidad;
+}
+
+//tenemos que definir el prototipo explícitamente, y también indicar el constructor
+Ingeniero.prototype = Object.create(Persona.prototype);
+Ingeniero.prototype.constructor = Ingeniero;
+
+```
+
+---
+
+## Herencia
+
+Heredar nos permite conservar métodos del "padre", pero también podemos redefinirlos.
+
+```javascript
+
+//podemos redefinir métodos, y agregar nuevos
+Ingeniero.prototype.saludar = function(){ 
+  console.log(this.nombre + " dice: hola, soy un ingeniero en" + this.especialidad +"!");
+}
+
+Ingeniero.prototype.despedirse = function(){ 
+  console.log(this.nombre + " dice: adiós!");
+}
+
+var ingeniero = new Ingeniero("Luis", "Borjas", "Sistemas Computacionales");
+console.log( ingeniero.saludar() ); //sobre-escrito
+console.log( ingeniero.caminar() ); //heredado
+console.log( ingeniero.despedirse() ); //agregado
+
+//el operador "instanceof"
+console.log(typeof ingeniero);
+console.log( ingeniero instanceof Ingeniero);
+console.log( ingeniero instanceof Persona);
+
+//polimorfismo:
+[ingeniero, new Persona("Juan Perez")].forEach(function(p){
+  console.log(p.saludar());
+});
+
+```
+
+---
+
+## Funciones de orden superior
+
+Funciones que actúan sobre otras funciones (recibiéndolas como argumentos o devolviéndolas como resultados).
+
+```javascript
+function imprimirCadaValor(objeto){
+  for(var p in objeto){
+    console.log(objeto[p]);
+  }
+}
+
+var objeto = Object.create(null); //crear sin prototipo, para que no estorbe
+objeto.primero = 1;
+objeto.segundo = "dos";
+imprimirCadaValor(objeto);
+
+//generalicemos:
+function porCada(objeto, accion){
+  for(var p in objeto){
+    accion(p, objeto[p]);
+  }
+}
+
+var imprimirValor = function(llave, valor){ console.log(valor); }
+porCada(objeto, imprimirValor);
+var imprimirLlave = function(llave, valor){ console.log(llave); }
+porCada(objeto, imprimirLlave);
+```
+
+---
+
+## Funciones de orden superior: composición, "callbacks"
+
+```javascript
+//callbacks
+function unless(test, then) {
+  if (!test) then();
+}
+function repeat(times, body) {
+  for (var i = 0; i < times; i++) body(i);
+}
+
+repeat(3, function(n) {
+  unless(n % 2, function() {
+    console.log(n, "is even");
+  });
+});
+
+var ancestry = [{age: 42, sex: "f"}, {age: 23, sex: "m"}, {age: 23, sex: "f"}];
+function average(array) {
+  function plus(a, b) { return a + b; }
+  return array.reduce(plus, 0) / array.length;
+}
+function age(p) { return p.age; }
+function male(p) { return p.sex == "m"; }
+function female(p) { return p.sex == "f"; }
+console.log(average(ancestry.filter(male).map(age)));
+console.log(average(ancestry.filter(female).map(age)));
+```
+
+---
+
+## Referencias
+
+* [Capítulo sobre programación orientada a objetos, eloquent javascript](http://eloquentjavascript.net/06_object.html)
+* [Trabajando con objetos, Mozilla Developer Network](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Working_with_Objects)
+* [Programación orientada a objetos, Mozilla Developer Network](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Introduction_to_Object-Oriented_JavaScript)
+* [Capítulo sobre funciones de orden superior, eloquent javascript](http://eloquentjavascript.net/06_object.html)
+* [Referencia sobre arreglos, MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Predefined_Core_Objects#Array_Object)
