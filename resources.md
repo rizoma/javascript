@@ -7,6 +7,11 @@ title:  Recursos
 
 Facilitador: Luis Borjas (luis@rizomas.org)
 
+## Google group
+
+Para discusiones y avisos: 
+<https://groups.google.com/a/rizomas.org/d/forum/javascript>
+
 ## Referencia
 
 * [Documentación sobre Javascript, en mozilla developer network](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
