@@ -61,7 +61,7 @@ console.log(empty.hasOwnProperty("toString"));
 console.log(Object.getPrototypeOf(empty));
 console.log(Object.getPrototypeOf(empty) == Object.prototype);
 console.log(Object.prototype.toString());
-console.log(Object.prototype.toString() == e.toString());
+console.log(Object.prototype.toString() == empty.toString());
 console.log(Object.getPrototypeOf(Object.prototype)); //aquí termina la recursión
 
 //algunos objetos heredan prototipos más especializados
@@ -247,3 +247,4 @@ console.log(average(ancestry.filter(female).map(age)));
 * [Programación orientada a objetos, Mozilla Developer Network](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Introduction_to_Object-Oriented_JavaScript)
 * [Capítulo sobre funciones de orden superior, eloquent javascript](http://eloquentjavascript.net/06_object.html)
 * [Referencia sobre arreglos, MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Predefined_Core_Objects#Array_Object)
+* [Sobre prototipos, MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Inheritance_and_the_prototype_chain)
