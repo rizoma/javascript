@@ -10,15 +10,6 @@ class: center, middle, inverse
 
 ---
 
-## Qué es el DOM?
-
-* **D**ocument **O**bject **M**odel: el _documento_ tratado como un _objeto_
-* Sí, un objeto de javascript
-* Una interfaz estándar que permite presentar, inspeccionar y manipular documentos HTML
-* JS en los browsers trae una implementación del estándar.
-
----
-
 class: center, middle 
 
 # HTML
@@ -97,7 +88,7 @@ Referencia sobre formularios [en mozilla](https://developer.mozilla.org/en-US/do
 </html>
 ```
 
-[Click acá para un formulario más complejo](http://www.rizomas.org/javascript/codigo/ejemplo_formulario_simple.html) (tomado de la [guía de formularios de mozilla](https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/Forms/How_to_structure_an_HTML_form))
+[Click acá para un formulario más complejo](http://www.rizomas.org/javascript/codigo/ejemplo_formulario_complejo.html) (tomado de la [guía de formularios de mozilla](https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/Forms/How_to_structure_an_HTML_form))
 
 ---
 
@@ -107,7 +98,248 @@ class: center, middle
 
 ---
 
+## Qué es el DOM?
 
+* **D**ocument **O**bject **M**odel: el _documento_ tratado como un _objeto_
+* Sí, un objeto de javascript.
+* Una interfaz estándar que permite presentar, inspeccionar y manipular documentos HTML.
+* Completamente orientada a objetos (todo elemento tiene atributos y métodos).
+* JS en los browsers trae una implementación del estándar.
+
+---
+
+## DOM: visualizando la estructura
+
+```html
+<!doctype html>
+<html>
+  <head>
+    <title>My home page</title>
+  </head>
+  <body>
+    <h1>My home page</h1>
+    <p>Hello, I am Marijn and this is my home page.</p>
+    <p>I also wrote a book! Read it
+      <a href="http://eloquentjavascript.net">here</a>.</p>
+  </body>
+</html>
+```
+
+---
+
+## DOM: visualizando la estructura:
+
+![tradicional](http://eloquentjavascript.net/img/html-boxes.svg)
+
+---
+
+## DOM: visualizando la estructura:
+
+* `document.documentElement`: la _raíz_ del árbol.
+* cada elemento en el árbol es un "nodo". Y tiene descendientes (children); y éstos, "hermanos" (siblings) al mismo nivel.
+
+![arbol](http://eloquentjavascript.net/img/html-tree.svg)
+
+---
+
+## DOM: navegando el árbol
+
+* los nodos tienen métodos para llegar a otros nodos.
+* los "hijos" de un nodo son instancias de `NodeList`, no verdaderos arreglos.
+
+![traverse](http://eloquentjavascript.net/img/html-links.svg)
+
+---
+
+## DOM: ejemplo de navegar el árbol
+
+```javascript
+function talksAbout(node, string) {
+  //cada nodo tiene una propiedad que tiene un número que lo
+  //identifica con un cierto tipo de nodo
+  if (node.nodeType == document.ELEMENT_NODE) {
+    for (var i = 0; i < node.childNodes.length; i++) {
+      if (talksAbout(node.childNodes[i], string))
+        return true;
+    }
+    return false;
+  } else if (node.nodeType == document.TEXT_NODE) {
+    return node.nodeValue.indexOf(string) > -1;
+  }
+}
+
+console.log(talksAbout(document.body, "book"));
+```
+---
+
+## DOM: encontrando elementos:
+
+[Aquí en jsFiddle](http://jsbin.com/wirobegofo/1/edit?html,css,js,console)
+
+```html
+<ol id="gente">
+  <li class="escritor">José Saramago</li>   
+  <li class="compositor" id="varesse">Edgar Varèsse</li>   
+  <li class="escritor">James Joyce</li>   
+  <li class="fisico">James Maxwell</li>   
+<ol>
+<script>
+   function toArray(a){
+     return Array.prototype.slice.apply(a);
+   }
+   var gente = document.getElementsByTagName("li");
+   var escritores = document.getElementsByClassName("escritor");
+   var varesse = document.getElementById("varesse");
+   var nombres_escritores = toArray(escritores).map(function(node){
+     return node.textContent;
+   });
+   console.log(nombres_escritores);
+</script>
+
+```
+Uno puede encontrar elementos de formas aún más sofisticadas con [`querySelectorAll`](https://developer.mozilla.org/en/docs/Web/API/Document.querySelectorAll), que usa [selectores de CSS](https://developer.mozilla.org/en-US/docs/Web/Guide/CSS/Getting_Started/Selectors)
+
+---
+
+## DOM: manipulando el documento
+
+Un nodo solo puede existir en un lugar.
+
+```html
+<div id="move">
+<p>One</p>
+<p>Two</p>
+<p>Three</p>
+</div>
+
+<div id="replace">
+<p>One</p>
+<p>Two</p>
+<p>Three</p>
+</div>
+
+<script>
+  var move = document.getElementById("move");
+  var paragraphs = move.getElementsByTagName("p");
+  move.insertBefore(paragraphs[2], paragraphs[0]);
+
+  var replace = document.getElementById("replace");
+  var paragraphs = replace.getElementsByTagName("p");
+  replace.replaceChild(paragraphs[2], paragraphs[0]);
+</script>
+```
+
+---
+
+## DOM: creando elementos
+
+```html
+<p>The <img src="img/cat.png" alt="Cat"> in the
+  <img src="img/hat.png" alt="Hat">.</p>
+
+<script>
+  function replaceImages() {
+    var images = document.body.getElementsByTagName("img");
+    //va al revés para no alterar elementos al principio
+    for (var i = images.length - 1; i >= 0; i--) {
+      var image = images[i];
+      if (image.alt) {
+        var paragraph = document.createElement("p");
+        var text = document.createTextNode(image.alt);
+        paragraph.appendChild(text);
+        image.parentNode.replaceChild(paragraph, image);
+      }
+    }
+  }
+  replaceImages();
+</script>
+```
+
+---
+
+## DOM: atributos
+
+```html
+<ol id="gente">
+  <li class="escritor" data-especialidad="ficción">José Saramago</li>   
+  <li class="compositor" id="varesse" data-especialidad="postmodernismo">Edgar Varèsse</li>   
+  <li class="escritor" data-especialidad="realismo mágico">James Joyce</li>   
+  <li class="fisico" data-especialidad="electromecánica">James Maxwell</li>   
+<ol>
+<script>
+   function toArray(a){
+     return Array.prototype.slice.apply(a);
+   }
+   var gente = document.getElementsByTagName("li");
+   var especialidades = toArray(gente).map(function(node){
+     return node.textContent+
+	" ("+node.className + "): " +
+	node.getAttribute("data-especialidad");
+   });
+   console.log(especialidades);
+</script>
+```
+---
+
+## Eventos
+
+Los eventos se "publican" y son "escuchados" por **handlers**
+
+```html
+<button>Click me</button>
+<button onclick="console.log('inline event!')">And me!</button>
+<p>No handler here.</p>
+<script>
+  var button = document.querySelector("button");
+  function once(){
+    console.log("Button clicked.");
+    button.removeEventListener("click", once);
+  }
+  button.addEventListener("click", once);
+</script>
+```
+
+---
+
+## Eventos como objetos
+
+Como todo, también son [objetos](https://developer.mozilla.org/en-US/docs/Web/API/Event)
+
+```html
+<button>A</button>
+<button>B</button>
+<button>C</button>
+<script>
+  document.body.addEventListener("click", function(event) {
+    if (event.target.nodeName == "BUTTON")
+      console.log("Clicked", event.target.textContent);
+  });
+</script>
+```
+
+---
+
+## Eventos: acciones por defecto
+
+```html
+<a href="https://developer.mozilla.org/">MDN</a>
+<script>
+  var link = document.querySelector("a");
+  link.addEventListener("click", function(event) {
+    console.log("Nope.");
+    event.preventDefault();
+  });
+</script>
+```
+
+---
+
+## Simplificando todo:
+
+[introducción rápida a jQuery](http://learn.jquery.com/about-jquery/how-jquery-works/).
+O una [guía más comprensiva](http://learn.jquery.com/using-jquery-core/)
+
+---
 
 ## Referencias
 
@@ -117,3 +349,7 @@ class: center, middle
 * [Introducción al DOM, por mozilla](https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model/Introduction)
 * Capítulos sobre el [browser](http://eloquentjavascript.net/12_browser.html), [DOM](http://eloquentjavascript.net/13_dom.html), [eventos](http://eloquentjavascript.net/14_event.html) y [formularios](http://eloquentjavascript.net/18_forms.html)
 * [Guía sobre formularios de mozilla](https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/Forms)
+* [Referencia de eventos en el DOM](https://developer.mozilla.org/en-US/docs/Web/Reference/Events)
+* [El objeto Event](https://developer.mozilla.org/en-US/docs/Web/API/Event)
+* [Guía de Web APIs](https://developer.mozilla.org/en-US/docs/Web/Guide/API)
+* [usando jQuery](http://learn.jquery.com/using-jquery-core/)
