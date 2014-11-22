@@ -1,6 +1,6 @@
 ---
 categories: [guias]
-title: Ejercicios
+title: (nivel 2) Ejercicios
 layout: page
 ---
 
