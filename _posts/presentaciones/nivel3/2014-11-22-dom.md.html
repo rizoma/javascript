@@ -1,0 +1,119 @@
+---
+categories: [presentaciones, nivel3]
+title: "(nivel 3) Sesión 1: programando la web con el DOM"
+layout: slideshow
+---
+
+class: center, middle, inverse
+
+# DOM: programando la web 
+
+---
+
+## Qué es el DOM?
+
+* **D**ocument **O**bject **M**odel: el _documento_ tratado como un _objeto_
+* Sí, un objeto de javascript
+* Una interfaz estándar que permite presentar, inspeccionar y manipular documentos HTML
+* JS en los browsers trae una implementación del estándar.
+
+---
+
+class: center, middle 
+
+# HTML
+
+---
+
+## HTML: términos útiles
+
+* _Hypertex Markup Language_: una forma de especificar la **estructura** de un documento.
+* **Elements (Elementos)**: componentes de una página
+* **Tags (etiquetas)**: marcan el inicio/fin de un elemento. Algunos elementos pueden *contener* otros elementos.
+* **Attributes (atributos)**: información adicional acerca de un elemento.
+* **Documents (documentos)**: una estructura de html con un elemento principal: `html`, una cabeza (`head`) y un cuerpo (`body`)
+* El elemento `head` tiene información *acerca* del documento, `body` es el documento en sí.
+* Componentes especiales: doctype y comentarios.
+* **Doctype**: declara la versión de html.
+* Vamos a estar hablando de [HTML 5](http://diveintohtml5.info/).
+* Todos los ejemplos pueden ser copiados a [thimble](https://thimble.webmaker.org/)
+
+---
+## HTML: un documento de ejemplo
+
+[Click aquí para verlo en el browser](http://www.rizomas.org/javascript/codigo/ejemplo.html)
+
+```html
+<!doctype html>
+<!-- el de arriba es el doctype para html 5 -->
+<html>
+<!-- el espacio en blanco no importa: la indentación es una ayuda visual -->
+  <head>
+      <!-- el tag meta tiene información útil para el cliente (e.g. un browser)-->
+      <meta charset="utf-8" />
+      <title>Demo de HTML</title>
+  </head>
+  <body>
+      <h1>Hola HTML!</h1>
+      <p>
+        Este es un párrafo con algo <em>enfatizado</em>
+        y algo en <strong>negritas</strong>.
+        Algunos elementos tienen atributos:
+        <a href="http://www.rizomas.org/javascript/codigo/ejemplo.html">
+          click aquí para ver esta página en el browser
+        </a>
+      </p>
+  </body>
+</html>
+```
+---
+
+## HTML: otros elementos notables
+
+* Listas [ordenadas](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/ol), [sin orden](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/ul) y [de definiciones](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/dl)
+* Elementos sin una representación, para organizar: [`div`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div) y [`span`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/span)
+* Elementos editoriales como `header`, `footer`, `abbr`, etc; explicados en la [referencia de mozilla](https://developer.mozilla.org/en-US/docs/Web/HTML/Element). Algunos son [nuevos de html 5](http://diveintohtml5.info/peeks-pokes-and-pointers.html)
+
+---
+
+## HTML: formularios
+
+[Click aquí para verlo en el browser](http://www.rizomas.org/javascript/codigo/ejemplo_formulario_simple.html).
+Referencia sobre formularios [en mozilla](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/form)
+
+```html
+<!doctype html>
+<html>
+  <head>
+      <title>Demo de Formularios</title>
+  </head>
+  <body>
+    <form action="">
+      <label for="GET-nombre">Nombre:</label>
+      <input id="GET-nombre" type="text" name="name">
+      <input type="submit" value="Save">
+    </form>
+  </body>
+</html>
+```
+
+[Click acá para un formulario más complejo](http://www.rizomas.org/javascript/codigo/ejemplo_formulario_simple.html) (tomado de la [guía de formularios de mozilla](https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/Forms/How_to_structure_an_HTML_form))
+
+---
+
+class: center, middle 
+
+# DOM
+
+---
+
+
+
+## Referencias
+
+* [Introducción a HTML, por mozilla](https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/Introduction)
+* ["Dive into HTML5": introducción a lo nuevo en html 5](http://diveintohtml5.info/)
+* [Referencia de HTML](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference)
+* [Introducción al DOM, por mozilla](https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model/Introduction)
+* Capítulos sobre el [browser](http://eloquentjavascript.net/12_browser.html), [DOM](http://eloquentjavascript.net/13_dom.html), [eventos](http://eloquentjavascript.net/14_event.html) y [formularios](http://eloquentjavascript.net/18_forms.html)
+* [Guía sobre formularios de mozilla](https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/Forms)
