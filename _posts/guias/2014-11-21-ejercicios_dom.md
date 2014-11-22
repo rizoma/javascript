@@ -38,7 +38,7 @@ Es posible incluir javascript directamente dentro de un tag `script`:
 </html>
 {% endhighlight %}
 
-O apuntar a un script externo mediante el atributo `src` (ver [ejemplo](/codigo/ejemplo_script.html))
+O apuntar a un script externo mediante el atributo `src` (ver [ejemplo](/javascript/codigo/ejemplo_script.html))
 
 {% highlight html %}
 <!doctype html>
@@ -62,3 +62,30 @@ O apuntar a un script externo mediante el atributo `src` (ver [ejemplo](/codigo/
   </body>
 </html>
 {% endhighlight %}
+
+Por último, recuerde que puede ver el código fuente de una página mediante las [herramientas para desarrolladores de Chrome](https://developer.chrome.com/devtools); ([otros recursos](https://developer.mozilla.org/en-US/docs/Web/HTML))
+
+## Ejercicios
+
+### Entrada condicional
+
+Cree un formulario que presente dos "selects": uno con nombres de escritores/directores, y otro que dependa del primero: dependiendo del escritor/director elegido, mostrará una lista de sus libros/películas.
+
+### Diccionario
+
+Cree una página en HTML que represente un diccionario (pista: utilice el elemento `dl` de html). Agregue un formulario que permita agregar definiciones al diccionario mediante JavaScript, muestre un error (y no agregue una entrada) si la palabra ya está definida (no importa si las mayúsculas o minúsculas son diferentes).
+
+### Calculadora
+
+Cree una página que implemente una calculadora básica (pista: utilice el elemento `button`). Agregue las operaciones aritméticas básicas, puede usar dos campos diferentes para los operandos (reto: trate de no hacer la calculadora "a mano", sino que sea generada por javascript, otro reto, trate de que la calculadora use un solo campo de entrada, como las calculadoras normales).
+
+
+### Creador de tablas
+
+Dado un arreglo de objetos con los mismos campos (puede simplemente crearlo o permitir al usuario entrar JSON dentro de una `textarea`), escriba JavaScript para tomar ese objeto y mostrarlo como una tabla de html (incluya encabezados). Pista: JSON.
+
+Reto: agregue "filtros": un formulario que permita elegir entre los distintos campos con un select y, mediante un text input, permita al usuario escribir un valor, y modifique la tabla para que solo elementos cuyo campo seleccionado tenga el valor determinado.
+
+### Lista de cosas que hacer
+
+Cree un formulario que permita agregar "tareas". Las tareas deberán agregarse al DOM como texto acompañado de un checkbox, si el checkbox recibe un click, la tarea deberá pasar a una lista de "terminadas".
