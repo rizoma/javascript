@@ -1,0 +1,21 @@
+<!doctype html>
+<html>
+  <head>
+     <title>Demo de Formularios</title>
+     <script type="text/javascript" src="entrada_condicional.js"></script>
+  </head>
+  <body>
+    <form id="form-escritores">                                                                     
+      <label for="escritores">Escritor:</label>                                            
+      <select id="escritores"></select>
+
+      <label for="obras">Obras:</label>                                            
+      <select id="obras"></select>
+    </form>
+    <script>
+      document.addEventListener("DOMContentLoaded", function(){
+         prepareForm(document.getElementById("form-escritores"));
+      });
+    </script>
+  </body>
+</html>
