@@ -1,0 +1,31 @@
+<!doctype html>
+<html>
+  <head>
+     <title>Diccionario</title>
+     <meta charset="utf-8"/>
+     <script type="text/javascript" src="diccionario.js"></script>
+  </head>
+  <body>
+    <h1>Diccionario</h1>
+    <dl id="diccionario">
+    </dl>
+
+    <hr/>
+
+    <h2>Agregar definición</h2>
+    <form>                                                                     
+      <label for="new-word">Palabra:</label>                                            
+      <input type="text" id="new-word" name="word"></select>
+
+      <label for="new-definition" name="definition">Definición:</label>                                            
+      <input type="text" id="new-definition"></select>
+
+      <input type="submit" id="submit-definition" value="Agregar"/>
+    </form>
+    <script>
+      document.addEventListener("DOMContentLoaded", function(){
+        loadAndPrepareDictionary();
+      });
+    </script>
+  </body>
+</html>
