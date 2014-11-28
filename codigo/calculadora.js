@@ -12,13 +12,6 @@ Calculator.helpers = {
   }
 };
 
-Calculator.operations = {
-  "+": function(a,b){ return a+b; },
-  "-": function(a,b){ return a-b; },
-  "*": function(a,b){ return a*b; },
-  "/": function(a,b){ return a/b; }
-};
-
 Calculator.prepare = function(){
   this.prepareNumbers();
   this.prepareOperations();
