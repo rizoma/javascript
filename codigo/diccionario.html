@@ -22,6 +22,12 @@
 
       <input type="submit" id="submit-definition" value="Agregar"/>
     </form>
+
+    <script id="entry-template" type="text/template">
+      <dt><strong>{{word}}</strong></dt>
+      <dd>{{definition}}</dd>
+    </script>
+
     <script>
       document.addEventListener("DOMContentLoaded", function(){
         loadAndPrepareDictionary();

@@ -49,14 +49,16 @@ Dictionary.prototype.render = function(){
 }
 
 Dictionary.prototype.renderEntry = function(word){
-  var populatedTemplate = this.populateTemplate(word, this.entries[word]);
-  //cf https://developer.mozilla.org/en-US/docs/Web/API/Element.insertAdjacentHTML
-  //pude haber usado appendChild también: https://developer.mozilla.org/en-US/docs/Web/API/Node.appendChild
+  var populatedTemplate = this.populateTemplate({word: word, definition: this.entries[word]});
   this.container.insertAdjacentHTML('beforeend', populatedTemplate);
 }
 
-Dictionary.prototype.populateTemplate = function(word, definition){
-  var template = "<dt><strong>" + word + "</strong></dt>" +
-                 "<dd>" + definition + "</dd>";
-  return template;
+Dictionary.prototype.populateTemplate = function(data){
+  var template = document.getElementById("entry-template").textContent;
+
+  return Object.keys(data).reduce(function(result, datum){
+    var toReplace = "{{" + datum + "}}";
+    var replacement = data[datum];
+    return result.replace(toReplace, replacement);
+  }, template);
 }
