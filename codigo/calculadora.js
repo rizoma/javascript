@@ -6,7 +6,7 @@ Calculator.stack = [];
 Calculator.helpers = {
   toArray: function(enumerable){
     return Array.prototype.slice.apply(enumerable);         
-  }
+  },
   isNumber: function(val){
     return !isNaN(val);          
   }
@@ -22,7 +22,6 @@ Calculator.operations = {
 Calculator.prepare = function(){
   this.prepareNumbers();
   this.prepareOperations();
-  this.prepareDisplay();
 }
 
 Calculator.prepareNumbers = function(){
@@ -35,14 +34,17 @@ Calculator.prepareNumbers = function(){
 
 Calculator.handleNumber = function(event){
   var intValue = Number(event.target.getAttribute("data-value"));
-  if(!this.helpers.isNumber(this.stack[0])){
-    this.stack.unshift(intValue);
-    this.setDisplay(intValue);
+  if(!Calculator.helpers.isNumber(Calculator.stack[0])){
+    Calculator.stack.unshift(intValue);
+    Calculator.setDisplay(intValue);
   }
 }
 
-Calculator.setDisplay(value){
+Calculator.setDisplay = function(value, updateAccumulator){
+  updateAccumulator = updateAccumulator || true;
   document.getElementById("display").value = value;
+  if(updateAccumulator)
+    document.getElementById("accumulator").textContent = this.stackString();
 }
 
 Calculator.prepareOperations = function(){
@@ -55,23 +57,19 @@ Calculator.prepareOperations = function(){
 
 Calculator.handleOperation= function(event){
   var operation = event.target.getAttribute("data-value")
-  var func = this.operations[operation];
   //solo deja aplicar la operación si lo último que se aplicó
   //fue un número
-  if(operation == "=" && this.helpers.isNumber(this.stack[0]))
-    this.operate();
-  else if(this.helpers.isNumber(this.stack[0]))
-    this.stack.unshift(func);
+  if(operation == "=" && Calculator.helpers.isNumber(Calculator.stack[0]))
+    Calculator.operate();
+  else if(Calculator.helpers.isNumber(Calculator.stack[0]))
+    Calculator.stack.unshift(operation);
 }
 
 Calculator.operate = function(){
-  var result = this.stack.reduceRight(function(runningResult, item){
-    if(this.helpers.isNumber(item)){
-      return runningResult(item); 
-    }else{
-      return function(y){
-        return item(y);
-      } 
-    }
-  }, function(x){return x});
+  var result = eval(this.stackString());
+  this.setDisplay(result, false);
+}
+
+Calculator.stackString = function(){
+  return this.stack.join("").split("").reverse().join("");
 }
