@@ -54,11 +54,5 @@ Dictionary.prototype.renderEntry = function(word){
 }
 
 Dictionary.prototype.populateTemplate = function(data){
-  var template = document.getElementById("entry-template").textContent;
-
-  return Object.keys(data).reduce(function(result, datum){
-    var toReplace = "{{" + datum + "}}";
-    var replacement = data[datum];
-    return result.replace(toReplace, replacement);
-  }, template);
+  return ich["entry-template"](data);
 }
