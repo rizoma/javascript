@@ -1,0 +1,55 @@
+<!doctype html>
+<html>
+  <head>
+     <title>Tablas</title>
+     <script src="icanhaz.js"></script>
+     <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+     <script type="text/javascript" src="tablas.js"></script>
+  </head>
+  <body>
+    <form id="table-form">                                                          
+      <p>
+        <label for="data">Data:</label>
+        <textarea cols=80 rows=20 id="data"></textarea>
+      </p>
+      <p>
+        <input type="submit" value="Crear tabla"/>
+      </p>
+    </form>
+
+    <table id="data-table">
+    </table>
+
+    <script id="headers" type="text/html">
+      <thead>
+        <tr>
+          {{#headers}}
+            <th>{{.}}</th>
+          {{/headers}}
+        </tr>
+      </thead>
+    </script>
+
+    <script id="body" type="text/html">
+      <tbody>
+        {{#data}}
+        <tr>
+          {{#row}}
+            <td>{{.}}</td>
+          {{/row}}
+        </tr>
+        {{/data}}
+      </tbody>
+    </script>
+
+    <script>
+      $(function(){
+        window.TableCreator.init($("#table-form"), $("#data-table"));
+        $("#data").val(JSON.stringify([
+          {titulo: "Interstellar", director: "Christopher Nolan"},
+          {titulo: "Pi", director: "Darren Aronofsky"}
+        ]));
+      });
+    </script>
+  </body>
+</html>
