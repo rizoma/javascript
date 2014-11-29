@@ -33,7 +33,7 @@ Calculator.setDisplay = function(value, updateAccumulator){
   updateAccumulator = updateAccumulator || true;
   $("#display").val(value);
   if(updateAccumulator)
-    $("#accumulator").val(this.stackString());
+    $("#accumulator").text(this.stackString());
 }
 
 Calculator.prepareOperations = function(){
