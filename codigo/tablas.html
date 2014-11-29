@@ -7,7 +7,14 @@
      <script type="text/javascript" src="tablas.js"></script>
   </head>
   <body>
+    <form id="data-search">
+      <select id="data-filter"></select>
+      <input  id="data-query" type="text"/>
+      <input type="submit" value="Buscar"/>
+      <button id="data-reset">Mostrar todo</button>
+    </form>
     <form id="table-form">                                                          
+      </p>
       <p>
         <label for="data">Data:</label>
         <textarea cols=80 rows=20 id="data"></textarea>
@@ -19,6 +26,12 @@
 
     <table id="data-table">
     </table>
+
+    <script id="filter" type="text/html">
+      {{#options}}
+        <option value="{{.}}">{{.}}</option>
+      {{/options}}
+    </script>
 
     <script id="headers" type="text/html">
       <thead>
