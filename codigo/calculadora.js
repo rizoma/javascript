@@ -18,11 +18,7 @@ Calculator.prepare = function(){
 }
 
 Calculator.prepareNumbers = function(){
-  var numbers = document.getElementsByClassName("number");
-  var nodeArray = Calculator.helpers.toArray(numbers);
-  nodeArray.forEach(function(node){
-    node.addEventListener('click', Calculator.handleNumber);
-  });
+  $(".number").on('click', Calculator.handleNumber);
 }
 
 Calculator.handleNumber = function(event){
@@ -35,17 +31,13 @@ Calculator.handleNumber = function(event){
 
 Calculator.setDisplay = function(value, updateAccumulator){
   updateAccumulator = updateAccumulator || true;
-  document.getElementById("display").value = value;
+  $("#display").val(value);
   if(updateAccumulator)
-    document.getElementById("accumulator").textContent = this.stackString();
+    $("#accumulator").val(this.stackString());
 }
 
 Calculator.prepareOperations = function(){
-  var operations = document.getElementsByClassName("operation");
-  var nodeArray = Calculator.helpers.toArray(operations);
-  nodeArray.forEach(function(node){
-    node.addEventListener('click', Calculator.handleOperation);
-  });
+  $(".operation").on('click', Calculator.handleOperation);
 }
 
 Calculator.handleOperation= function(event){
