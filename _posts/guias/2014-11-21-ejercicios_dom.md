@@ -71,14 +71,19 @@ Por último, recuerde que puede ver el código fuente de una página mediante la
 
 Cree un formulario que presente dos "selects": uno con nombres de escritores/directores, y otro que dependa del primero: dependiendo del escritor/director elegido, mostrará una lista de sus libros/películas.
 
+[Solución]({{baseurl}}/codigo/entrada_condicional.html)
+
 ### Diccionario
 
 Cree una página en HTML que represente un diccionario (pista: utilice el elemento `dl` de html). Agregue un formulario que permita agregar definiciones al diccionario mediante JavaScript, muestre un error (y no agregue una entrada) si la palabra ya está definida (no importa si las mayúsculas o minúsculas son diferentes).
+
+[Solución]({{baseurl}}/codigo/diccionario.html)
 
 ### Calculadora
 
 Cree una página que implemente una calculadora básica (pista: utilice el elemento `button`). Agregue las operaciones aritméticas básicas, puede usar dos campos diferentes para los operandos (reto: trate de no hacer la calculadora "a mano", sino que sea generada por javascript, otro reto, trate de que la calculadora use un solo campo de entrada, como las calculadoras normales).
 
+[Solución]({{baseurl}}/codigo/calculadora.html)
 
 ### Creador de tablas
 
@@ -86,6 +91,11 @@ Dado un arreglo de objetos con los mismos campos (puede simplemente crearlo o pe
 
 Reto: agregue "filtros": un formulario que permita elegir entre los distintos campos con un select y, mediante un text input, permita al usuario escribir un valor, y modifique la tabla para que solo elementos cuyo campo seleccionado tenga el valor determinado.
 
+
+[Solución]({{baseurl}}/codigo/tablas.html)
+
 ### Lista de cosas que hacer
 
 Cree un formulario que permita agregar "tareas". Las tareas deberán agregarse al DOM como texto acompañado de un checkbox, si el checkbox recibe un click, la tarea deberá pasar a una lista de "terminadas".
+
+[Solución]({{baseurl}}/codigo/todo.html)
