@@ -1,0 +1,35 @@
+<!doctype html>
+<html>
+  <head>
+     <title>Cosas para Hacer</title>
+     <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+     <script src="icanhaz.js"></script>
+     <script type="text/javascript" src="todo.js"></script>
+     <style>
+       .complete{
+        text-decoration: line-through;
+       }
+     </style>
+  </head>
+  <body>
+    <form id="entrada"> 
+      <input type="text" size="20" />
+      <input type="submit" value="Crear" />
+    </form>
+    <ul id="todo-list">
+    </ul>
+
+    <script id="task" type="text/html">
+      <li class="task">
+        <input type="checkbox"/> 
+        <label>{{content}}</label>
+        <button>Remover</button>
+      </li>
+    </script>
+
+    <script>
+      $(App.init);
+    </script>
+  </body>
+</html>
+
